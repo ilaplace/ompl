@@ -14,7 +14,7 @@
 #include <ompl/control/SpaceInformation.h>
 #include <ompl/util/PPM.h>
 #include <boost/filesystem.hpp>
-
+//did i just fucked
 namespace ob = ompl::base;
 namespace og = ompl::geometric;
 namespace oc = ompl::control;
@@ -42,19 +42,13 @@ class Recorder
             c.blue = 0;
         }
     }
-
     void save(const char *filename,ompl::PPM &ppm_)
     {
-    
         ppm_.saveFile(filename);
     }
-
 };
- 
-
 void loadWorld(ompl::PPM &ppm_, int &maxWidth_, int &maxHeight_)
 {
-
     boost::filesystem::path path("../resources");
     bool ok = false;
     try
@@ -101,13 +95,12 @@ void postPropagate(const ob::State *state, const oc::Control *control, const dou
 }
 
 bool isStateValid(const oc::SpaceInformation *si, const ob::State *state, ompl::PPM &ppm_)
-{
-    
-    //    ob::ScopedState<ob::SE2StateSpace>
-    // cast the abstract state type to the type we expect
+{   
+    //ob::ScopedState<ob::SE2StateSpace>
+    //cast the abstract state type to the type we expect
     //const auto *se2state = state->as<ob::SE2StateSpace::StateType>();
 
-   // const auto *pos = se2state->as<ob::RealVectorStateSpace::StateType>(0);
+    //const auto *pos = se2state->as<ob::RealVectorStateSpace::StateType>(0);
     //const auto *rot = se2state->as<ob::SO2StateSpace::StateType>(1);
     //To-Do: With and height must be reset
     //onst int w = std::min((int)state->as<ob::RealVectorStateSpace::StateType>()->values[0], 1000);
@@ -115,13 +108,8 @@ bool isStateValid(const oc::SpaceInformation *si, const ob::State *state, ompl::
     const int w = std::min((int)state->as<ob::SE2StateSpace::StateType>()->getX(), 1800);
     const int h = std::min((int)state->as<ob::SE2StateSpace::StateType>()->getY(), 1800);
 
-    //const int w = std::min((int)se2state->getX(), 1000);
-    //const int h = std::min((int)se2state->getY(), 1000);
-
     const ompl::PPM::Color &c = ppm_.getPixel(h, w);
     //std::cout <<h<< " " << w << std::endl;
-    
-
     //return c.red > 127 && c.green > 127 && c.blue > 127 && si->satisfiesBounds(state) && (const void *)rot != (const void *)pos;
     return c.red > 127 && c.green > 127 && c.blue > 127 && si->satisfiesBounds(state);
 }
